@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v_Header></v_Header>
+    <v_Header :seller="seller"></v_Header>
    <div class="tab">
      <div class="tab-item">
        <router-link to="/goods">商品</router-link>
@@ -12,8 +12,6 @@
        <router-link to="/seller">商家</router-link>
       </div>
    </div>
-
-
     <router-view></router-view>
   </div>
 </template>
@@ -24,6 +22,17 @@ export default {
   name: 'App',
   components:{
     'v_Header':Header,
+  },
+  data() {
+    return {
+        seller:{}
+    }
+  },
+  created() {
+      this.$http.get('../static/data.json').then((res)=>{
+        this.seller = res.body.seller
+      })
+
   }
 }
 </script>
@@ -34,10 +43,20 @@ export default {
     width: 100%;
     height: 40px;
     line-height: 40px;
+
   }
   .tab-item{
     flex: 1;
     text-align: center;
   }
-
+  .tab-item a{
+    display: block;
+    font-size: 14px;
+    color:rgb(77,85,93);
+    text-decoration: none;
+  }
+  .tab-item a.active{
+    color:rgb(240,20,20);
+    border-bottom: 1px solid #4d555d;
+  }
 </style>
