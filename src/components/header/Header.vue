@@ -35,11 +35,11 @@
       <div class="detail" v-show="detailShow">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
-
-
+            <h1>{{seller.name}}</h1>
+            <star></star>
           </div>
         </div>
-        <div class="detail-close">
+        <div class="detail-close" @click="closeDetail">
           <span>✖</span>
         </div>
       </div>
@@ -48,16 +48,20 @@
 </template>
 
 <script>
-
+import star from '../star/star'
   export default {
     name: 'header',
+    components:{
+      star,
+    },
     props:['seller'],
     methods:{
       showDetail(){
         this.detailShow = true;
+      },
+      closeDetail(){
+        this.detailShow = false;
       }
-
-
     },
     data(){
       return {
@@ -95,6 +99,7 @@
 </script>
 
 <style scoped>
+
   .clearfix{
     display: inline-block;
   }
