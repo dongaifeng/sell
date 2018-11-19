@@ -36,11 +36,12 @@
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1>{{seller.name}}</h1>
-            <star></star>
+            <star :size="48" :score="4"></star>
           </div>
         </div>
         <div class="detail-close" @click="closeDetail">
           <span>✖</span>
+
         </div>
       </div>
 
@@ -206,10 +207,13 @@ import star from '../star/star'
   }
   .detail-wrapper{
     min-height: 100%;
+    width: 100%;
   }
   .detail-main{
     margin-top: 64px;
+    text-align: center;
     padding-bottom: 64px;
+    font-size: 22px;
   }
   .detail-close{
     position: relative;
