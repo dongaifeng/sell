@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v_Header :seller="seller"></v_Header>
+    <myHeader :seller="seller"></myHeader>
    <div class="tab">
      <div class="tab-item">
        <router-link to="/goods">商品</router-link>
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-  import Header from './components/header/Header'
+  import myHeader from './components/header/myHeader'
 export default {
   name: 'App',
   components:{
-    'v_Header':Header,
+    myHeader,
   },
   data() {
     return {

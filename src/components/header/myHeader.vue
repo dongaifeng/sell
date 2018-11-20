@@ -29,21 +29,52 @@
         <span class="bulletin-text">{{seller.bulletin}}</span>
         <i class="icon-keyboard_arrow_right">&gt;</i>
       </div>
+      <!--背景图片-->
       <div class="bg">
         <img :src="seller.avatar" width="100%" height="100%">
       </div>
-      <div class="detail" v-show="detailShow">
-        <div class="detail-wrapper clearfix">
-          <div class="detail-main">
-            <h1>{{seller.name}}</h1>
-            <star :size="48" :score="4"></star>
+      <!--弹出层-->
+      <transition name="fade">
+        <div class="detail" v-show="detailShow">
+          <div class="detail-wrapper clearfix">
+            <div class="detail-main">
+              <h1>{{seller.name}}</h1>
+              <star :size="48" :score="seller.score"></star>
+            </div>
+
+            <div class="title2">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+
+            <ul v-if="seller.supports" class="supports2">
+              <li v-for="(item,ind) in seller.supports" class="supportLi">
+                <span :class="classMap[item.type]" class="icon2"></span>
+                <span class="text2">{{item.description}}</span>
+              </li>
+            </ul>
+
+            <div class="title2">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+
+            <div class="bulle" v-if="seller.bulletin">
+              <p>{{seller.bulletin}}</p>
+            </div>
+
+
+
+          </div>
+          <div class="detail-close" @click="closeDetail">
+            <span>✖</span>
+
           </div>
         </div>
-        <div class="detail-close" @click="closeDetail">
-          <span>✖</span>
+      </transition>
 
-        </div>
-      </div>
 
     </div>
 </template>
@@ -51,7 +82,7 @@
 <script>
 import star from '../star/star'
   export default {
-    name: 'header',
+    name: 'myHeader',
     components:{
       star,
     },
@@ -67,6 +98,7 @@ import star from '../star/star'
     data(){
       return {
         detailShow:false,
+        classMap:['decrease','discount','special','invoice','guarantee'],
         brand:{
           display: 'inline-block',
           width: '30px',
@@ -100,6 +132,86 @@ import star from '../star/star'
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  .bulle{
+    width: 80%;
+    margin: 30px auto ;
+  }
+  .bulle>p{
+   padding: 0 22px;
+    line-height: 25px;
+    font-size: 14px;
+    margin-bottom: 70px;
+  }
+  .supports2{
+    width: 80%;
+    margin:0 auto 30px;
+  }
+  .supportLi{
+    padding: 0 12px;
+    margin-bottom: 12px;
+    font-size: 0px;
+  }
+  .supportLi:last-child{
+    margin-bottom: 0px;
+  }
+  .icon2{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+  }
+  .text2{
+    line-height: 18px;
+    font-size: 14px;
+  }
+  .decrease{
+    background-image: url("../../../resource/img/decrease_2@2x.png");
+  }
+  .discount{
+    background-image: url("../../../resource/img/discount_2@2x.png");
+  }
+  .special{
+    background-image: url("../../../resource/img/special_2@2x.png");
+  }
+  .invoice{
+    background-image: url("../../../resource/img/invoice_2@2x.png");
+  }
+  .guarantee{
+    background-image: url("../../../resource/img/guarantee_2@2x.png");
+  }
+
+  .title2{
+    width: 80%;
+    margin: 10px auto 24px;
+    display: flex;
+  }
+  .line{
+    flex: 1;
+    position: relative;
+    top: -6px;
+    border-bottom: 1px solid rgba(255,255,255,.5);
+  }
+  .text{
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 700px !important;
+  }
+
+
+
+
+  .star{
+    margin-top: 20px;
+  }
 
   .clearfix{
     display: inline-block;
@@ -118,9 +230,10 @@ import star from '../star/star'
     left:0px;
     width: 100%;
     height: 100%;
-    background: rgba(7,17,27,.6);
+    background: rgba(7,17,27,.8);
     overflow: auto;
     z-index: 100;
+    backdrop-filter: blur(10px);
   }
   .header{
     color:#fff;
@@ -212,7 +325,7 @@ import star from '../star/star'
   .detail-main{
     margin-top: 64px;
     text-align: center;
-    padding-bottom: 64px;
+    padding-bottom: 22px;
     font-size: 22px;
   }
   .detail-close{
