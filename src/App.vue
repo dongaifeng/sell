@@ -12,7 +12,7 @@
        <router-link to="/seller">商家</router-link>
       </div>
    </div>
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 
@@ -38,6 +38,7 @@ export default {
 </script>
 
 <style>
+  @import "common/style.css";
   #app .tab{
     display: flex;
     width: 100%;
